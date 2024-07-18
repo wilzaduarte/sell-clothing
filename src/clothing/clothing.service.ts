@@ -61,4 +61,12 @@ export class ClothingService {
     const products = await this.prisma.clothing.findMany(); //p encontrar  todos os produtos(clothing)
     return products;
   }
+
+  
+  async addNewProduct (data: CreateClothDto) {
+    const newProduct = await this.prisma.clothing.create({
+      data,
+    });
+    return newProduct;
+  }
 }

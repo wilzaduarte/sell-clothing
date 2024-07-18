@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
 
 export class AuthDto {
   @IsEmail()
@@ -39,4 +39,28 @@ export interface payloadData{
   email: string;
   roles: string;
   iat: number
+}
+export class CreatepurchaseDto {
+  @IsNotEmpty()
+  @IsString()
+  country: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  age: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  cardNumber: number;
+
+  @IsNotEmpty()
+  @IsString()
+  state: string;
+
+  @IsNotEmpty()
+  @IsString()  name: string;
+
+  @IsArray()
+  products: { id: number, quantity: number }[];
+
 }

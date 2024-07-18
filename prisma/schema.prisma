@@ -28,6 +28,9 @@ model Clothing {
   stock     Int
   link      String
   price     Int  @default(0)
+  payments  PaymentClothing[]
+  purchases  Purchase[] @relation("ClothingToPurchase")
+  
 }
 
 model Payment{
@@ -37,7 +40,35 @@ model Payment{
   user          User         @relation(fields: [userId], references: [id])
   items         Json
   price         Int
+  country       String
+  age           Int
+  cardNumber    Int
+  state         String
+  name          String
+  clothingItems PaymentClothing[]
+}
 
+model PaymentClothing {
+  paymentId  Int
+  clothingId Int
+  payment    Payment   @relation(fields: [paymentId], references: [id])
+  clothing   Clothing  @relation(fields: [clothingId], references: [id])
+  @@id([paymentId, clothingId])
+
+}
+model Purchase {
+  id           Int      @id @default(autoincrement())
+  totalPrice   Float
+  country      String
+  age          Int
+  cardNumber   String
+  state        String
+  name         String
+  items        Json
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  clothings    Clothing[] @relation("ClothingToPurchase")
 }
 
 enum Roles {
